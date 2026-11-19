@@ -1,0 +1,30 @@
+# Laporan Praktikum Modul 01: Mobile Ecosystem, Flutter Setup & Profile App
+
+- **Nama**: Daniel Tumbel
+- **NIM**: 362558302112
+- **Kelas / Prodi**: 2B / Sarjana Terapan TRPL
+- **Mata Kuliah**: Pemrograman Perangkat Bergerak (Semester 3)
+
+---
+
+## 1. Ringkasan Aktivitas
+
+Pada praktikum minggu ini, saya mendalami ekosistem pengembangan aplikasi mobile—mulai dari perbandingan pendekatan Native, Hybrid, dan Cross-Platform Modern seperti Flutter, arsitektur tiga lapisan Flutter (Framework, Engine, dan Embedder), hingga perbedaan kompilasi JIT untuk tahap development dan AOT untuk release. Materi tersebut juga mencakup konsep UI deklaratif serta penerapan Dart Sound Null Safety. Di sisi praktik, saya mengonfigurasi toolchain Flutter SDK dan Android SDK di Windows, mempraktikkan perbedaan Hot Reload dan Hot Restart, membuat aplikasi profil sederhana, serta mencatat perkembangan kode ke dalam repositori Git.
+
+## 2. Bukti Tangkapan Layar (Running App)
+
+Berikut tangkapan layar aplikasi profil yang berhasil dijalankan pada perangkat/emulator pengujian:
+
+![Screenshot Running 1](./screenshots/running_01.png)
+![Screenshot Running 2](./screenshots/running_02.png)
+
+## 3. Kendala yang Dihadapi & Solusinya
+
+- **Kendala**: Emulator atau perangkat belum terdeteksi / lambat saat _booting_ atau _build_ awal berlangsung di lingkungan Windows.
+- **Solusi**: Memastikan perangkat target sudah aktif dan siap dikenali oleh Flutter/ADB, menonaktifkan mode hemat daya berlebih saat _booting_, serta menjalankan pembersihan _build cache_ (`flutter clean` lalu `flutter pub get`) ketika terjadi kendala kompilasi.
+
+## 4. Jawaban Pertanyaan Refleksi
+
+1. **Pilihan Native vs Flutter**: Pendekatan _Native_ (seperti Kotlin atau Swift) unggul dalam performa tinggi dan akses langsung ke API bawaan platform, tetapi umumnya membutuhkan basis kode terpisah untuk tiap platform sehingga biaya pemeliharaan dan koordinasi bisa lebih tinggi. Flutter menggunakan satu basis kode lintas platform dengan _rendering engine_ sendiri tanpa _bridge_ penerjemah runtime seperti _hybrid/WebView_ atau pendekatan _cross-platform_ lama, sehingga cocok untuk pengembangan cepat dan konsistensi antarmuka, meskipun performa aktual tetap perlu diukur sesuai kebutuhan dan kompleksitas aplikasi.
+2. **Prinsip UI = f(state)**: Prinsip ini berarti antarmuka pengguna merupakan fungsi dari _state_ (kondisi/data) aplikasi saat ini. Pada paradigma deklaratif Flutter, _developer_ tidak memanipulasi _widget_ secara manual satu per satu seperti pada pendekatan imperatif, melainkan mendeskripsikan tampilan berdasarkan _state_; ketika _state_ berubah, Flutter akan me-rebuild bagian _widget_ yang terdampak agar UI selalu selaras dengan data terbaru.
+3. **Pentingnya Conventional Commits**: _Conventional Commits_ memberikan aturan penulisan pesan _commit_ yang terstruktur dan konsisten (seperti `feat:`, `fix:`, `docs:`). Hal ini memudahkan pelacakan riwayat perubahan kode, mempermudah _code review_ dan kolaborasi tim, serta membantu otomatisasi pembuatan _changelog_ atau penandaan versi rilis proyek.
