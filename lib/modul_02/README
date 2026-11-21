@@ -1,0 +1,32 @@
+# Laporan Praktikum Modul 02: Declarative UI & Responsive Layout
+
+- **Nama**: Daniel Tumbel
+- **NIM**: 362558302112
+- **Kelas / Prodi**: 2B/ Sarjana Terapan TRPL
+- **Mata Kuliah**: Pemrograman Perangkat Bergerak (Semester 3)
+
+---
+
+## 1. Ringkasan Aktivitas
+
+Pada praktikum Modul 02 ini, saya mempelajari mekanisme tata letak di Flutter melalui aturan _BoxConstraints_ (_Constraints go down, Sizes go up, Parent sets position_) serta perbedaan _tight_, _loose_, dan _unbounded constraints_. Saya juga membedakan siklus hidup `StatelessWidget` dan `StatefulWidget` (`createState`, `initState`, `didChangeDependencies`, `build`, `setState`, dan `dispose`), serta menyusun tata letak menggunakan `Row`, `Column`, `Expanded`, `Flexible`, `Spacer`, `Stack`, dan `Positioned`.
+
+Selain itu, saya mengimplementasikan antarmuka responsif dan adaptif menggunakan `MediaQuery` dan `LayoutBuilder` untuk berbagai ukuran layar (_viewport_), mengatur tema terpusat berbasis Material Design 3 (`ColorScheme.fromSeed` dan `ThemeData`) termasuk dukungan _light/dark mode_, serta mendiagnosis dan mengatasi isu _overflow_ maupun _unbounded height_[cite: 1].
+
+## 2. Bukti Tangkapan Layar (Running App)
+
+Berikut tangkapan layar hasil implementasi dan pengujian tampilan pada beberapa ukuran _viewport_ serta mode tema:
+
+![Screenshot Viewport Compact](./screenshots/modul02_compact.png)
+![Screenshot Viewport Medium / Expanded](./screenshots/modul02_responsive.png)
+
+## 3. Kendala yang Dihadapi & Solusinya
+
+- **Kendala**: Terjadi _overflow_ tata letak atau masalah ukuran saat lebar layar berubah maupun saat menempatkan _widget_ di dalam kontainer yang dapat di-scroll[cite: 1].
+- **Solusi**: Menggunakan _widget_ pembungkus yang sesuai dengan kebutuhan _constraints_ seperti `Expanded` atau `Flexible` pada tata letak flex, `LayoutBuilder` / `MediaQuery` untuk menyesuaikan susunan antar _breakpoint_, serta `SingleChildScrollView` / `ListView` secara tepat tanpa membungkus `Expanded` langsung di area _unbounded_[cite: 1].
+
+## 4. Jawaban Pertanyaan Refleksi
+
+1. **Aturan Constraints (_Constraints go down, Sizes go up, Parent sets position_) & Pemilihan Widget Pembungkus**: _Parent_ mengirimkan _BoxConstraints_ ke bawah kepada _child_, _child_ menentukan ukurannya sendiri dalam batas tersebut lalu mengirim _Size_ ke atas, dan _parent_ mengatur posisi koordinat _child_[cite: 1]. Pembungkus seperti `Expanded` dipakai untuk memaksa _child_ mengisi ruang sisa di _main axis_, `Flexible` memberi keleluasaan ukuran sesuai konten selama tidak melebihi ruang sisa, dan `SingleChildScrollView` membantu mencegah _overflow_ saat konten melebihi ruang yang tersedia[cite: 1].
+2. **Perbedaan `StatelessWidget` vs `StatefulWidget` dan Siklus Hidupnya**: `StatelessWidget` bersifat _immutable_ dan hanya bergantung pada konfigurasi konstruktor, sedangkan `StatefulWidget` memiliki objek `State` terpisah yang dapat berubah selama _runtime_ melalui `setState()`[cite: 1]. Siklus hidupnya meliputi `createState()`, `initState()` (inisialisasi satu kali), `didChangeDependencies()`, `build()`, `setState()` (menjadwalkan _rebuild_), dan `dispose()` (membersihkan _resource_ seperti _controller_ agar tidak terjadi _memory leak_)[cite: 1].
+3. **Layout Responsif, Material Design 3, dan Penanganan Error Layout**: `MediaQuery` dan `LayoutBuilder` memungkinkan antarmuka beradaptasi pada lebar layar berbeda (misalnya _compact_ hingga lebar tablet/desktop), sementara `ColorScheme.fromSeed` dan `ThemeData` menjaga konsistensi warna dan tema[cite: 1]. Kesalahan seperti _RenderFlex overflowed_ atau _unbounded height_ diatasi dengan memahami aliran _constraints_ _parent-child_ dan menempatkan _widget_ fleksibel atau _scrollable_ pada posisi yang tepat[cite: 1].
